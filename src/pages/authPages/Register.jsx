@@ -46,7 +46,6 @@ const Register = () => {
         withCredentials: true
       })
 
-      console.log(res)
       if (res) {
         toast.success(res.data.msg)
         
