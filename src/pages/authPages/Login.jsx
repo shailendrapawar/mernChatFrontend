@@ -2,6 +2,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import {Link} from "react-router-dom"
 
+
 const Login = () => {
     return (
         <div className="h-[400px] w-[320px] bg-slate-200 pl-2 pr-2 flex flex-col gap-5 justify-evenly ">
