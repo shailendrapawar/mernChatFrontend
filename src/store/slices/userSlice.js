@@ -16,7 +16,7 @@ const slice=createSlice({
             state.otherUsers=action.payload
         },
         setSelectedUser:(state,action)=>{
-            state.selectedUsers=action.payload
+            state.selectedUser=action.payload
         },
         setOnlineUsers:(state,action)=>{
             state.onlineUsers=action.payload

@@ -25,7 +25,6 @@ const useGetOtherUser = () => {
 
         }
 
-
         if (!user.authUser) {
             navigate("/")
             return

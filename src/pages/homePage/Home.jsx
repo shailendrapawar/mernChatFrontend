@@ -11,19 +11,16 @@ const Home = () => {
   const tempArr = [1, 2, 3, 4, 5, 6]
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
-  console.log(user)
-  
+  // console.log(user)
   useEffect(() => {
     if (!user) {
       navigate("/")
     }
-    
+
 
   }, [])
   useGetOtherUsers()
 
-
-  // console.log(user)
   return (
     <main className="w-[90%] max-w-[800px] h-[500px] flex">
 
@@ -31,8 +28,8 @@ const Home = () => {
         <div className="w-100% h-[20%] flex text-white" style={{ backgroundColor: theme.primary }}>
 
           <div className=" h-full w-[60%] flex flex-col justify-evenly items-center ">
-            <img className="h-17 w-17 bg-gray-300 rounded-full" src={user.authUser.profile}></img>
-            <span>{user.authUser.username}</span>
+            <img className="h-17 w-17 bg-gray-300 rounded-full" src={user?.authUser?.profile}></img>
+            <span>{user?.authUser?.username}</span>
           </div>
 
           {/* <section className="w-[40%] flex items-center justify-center">
@@ -47,8 +44,8 @@ const Home = () => {
             <button className="w-[20%] rounded-md text-xs h-7 text-white " style={{ backgroundColor: theme.dark }}>search</button>
           </section>
 
-          <section className="user-list h-[80%] overflow-y-scroll flex flex-col gap-2  p-2">
-            {user?.otherUsers?.map((item,i)=><OtherUserList key={i} data={item}/>)}
+          <section className="user-list h-[80%] overflow-y-scroll overflow-x-hidden flex flex-col gap-2  p-2">
+            {user?.otherUsers?.map((item, i) => <OtherUserList key={i} data={item} />)}
           </section>
         </div>
         <button className="absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white">logout</button>
@@ -59,34 +56,27 @@ const Home = () => {
 
 
 
-      <section className="w-4/6">
-        <header className="h-[15%] text-white flex relative items-center gap-5 pl-5" style={{backgroundColor:theme.dark}}>
-          <img className="h-15 w-15 bg-slate-300 rounded-full"></img>
-          <span>selected user name</span>
-          <span className="absolute right-5">online</span>
-        </header>
+      {
+        (user.selectedUser != null) ? (<section className="w-4/6">
+          <header className="h-[15%] text-white flex relative items-center gap-5 pl-5" style={{ backgroundColor: theme.dark }}>
+            <img className="h-15 w-15 bg-slate-300 rounded-full" src={user?.selectedUser?.profileImg}></img>
+            <span>{user?.selectedUser?.username}</span>
+            <span className="absolute right-5">online</span>
+          </header>
 
-        <main className="h-[75%] bg-white" >
-          chats
-        </main>
+          <main className="h-[75%] bg-white" >
+            chats
+          </main>
 
-        <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">
-          <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2" placeholder="enter messsage" style={{ backgroundColor: theme.pastel }}></input>
-          <button className="w-[20%] h-8 rounded-md text-white " style={{ backgroundColor: theme.dark }}>send</button>
-        </footer>
+          <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">
+            <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2" placeholder="enter messsage" style={{ backgroundColor: theme.pastel }}></input>
+            <button className="w-[20%] h-8 rounded-md text-white " style={{ backgroundColor: theme.dark }}>send</button>
+          </footer>
 
-      </section>
-
-
-
-
-
-
-
-
-
-
-
+        </section>) : (<div className="w-4/6 text-white flex items-center justify-center" style={{ backgroundColor: theme.pastel }}>
+          <h1>select user to chat</h1>
+        </div>)
+      }
 
 
 
