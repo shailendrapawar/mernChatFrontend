@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { IoColorFilterOutline } from "react-icons/io5";
 import OtherUserList from "../../components/otheUserList/OtherUserList"
 import useGetOtherUsers from "../../hooks/useGetOtherUser"
+import useGetConversation from "../../hooks/useGetConversation";
 const Home = () => {
   const navigate = useNavigate()
   const tempArr = [1, 2, 3, 4, 5, 6]
@@ -20,6 +21,7 @@ const Home = () => {
 
   }, [])
   useGetOtherUsers()
+  useGetConversation()
 
   return (
     <main className="w-[90%] max-w-[800px] h-[500px] flex">
@@ -39,8 +41,8 @@ const Home = () => {
 
 
         <div className="h-[70%] flex flex-col justify-evenly" style={{ backgroundColor: theme.pastel }}>
-          <section className="h-10 flex justify-evenly items-center">
-            <input type="text" className="w-[75%] rounded-2xl h-7 text-xs pl-2 pr-2 bg-white outline-none " />
+          <section className="h-10 flex justify-evenly items-center pl-1 pr-1">
+            <input type="text" className="w-[75%] rounded-2xl h-7 text-xs pl-3 pr-2 bg-white outline-none " />
             <button className="w-[20%] rounded-md text-xs h-7 text-white " style={{ backgroundColor: theme.dark }}>search</button>
           </section>
 
