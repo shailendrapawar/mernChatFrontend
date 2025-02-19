@@ -7,12 +7,15 @@ import { IoColorFilterOutline } from "react-icons/io5";
 import OtherUserList from "../../components/otheUserList/OtherUserList"
 import useGetOtherUsers from "../../hooks/useGetOtherUser"
 import useGetConversation from "../../hooks/useGetConversation";
+import SingleMsg from "../../components/singleMsg/SingleMsg"
 const Home = () => {
   const navigate = useNavigate()
   const tempArr = [1, 2, 3, 4, 5, 6]
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
-  // console.log(user)
+  const {messages}=useSelector(state=>state.message)
+  // console.log(messages)
+  
   useEffect(() => {
     if (!user) {
       navigate("/")
@@ -66,8 +69,12 @@ const Home = () => {
             <span className="absolute right-5">online</span>
           </header>
 
-          <main className="h-[75%] bg-white" >
-            chats
+          <main className="h-[75%] bg-white flex flex-col p-2 gap-2" >
+            {messages!=null?(
+              messages.map((v,i)=>{
+                return <SingleMsg data={v} key={i} />
+              })
+            ):(<h1>start a convo</h1>)}
           </main>
 
           <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">
