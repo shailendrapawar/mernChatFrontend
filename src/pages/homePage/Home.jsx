@@ -5,22 +5,25 @@ import { useNavigate } from "react-router-dom"
 
 import { IoColorFilterOutline } from "react-icons/io5";
 import OtherUserList from "../../components/otheUserList/OtherUserList"
+import useGetOtherUsers from "../../hooks/useGetOtherUser"
 const Home = () => {
   const navigate = useNavigate()
   const tempArr = [1, 2, 3, 4, 5, 6]
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
-  console.log(theme)
-
+  console.log(user)
+  
   useEffect(() => {
     if (!user) {
       navigate("/")
     }
+    
 
   }, [])
+  useGetOtherUsers()
 
 
-  console.log(user)
+  // console.log(user)
   return (
     <main className="w-[90%] max-w-[800px] h-[500px] flex">
 
@@ -28,13 +31,13 @@ const Home = () => {
         <div className="w-100% h-[20%] flex text-white" style={{ backgroundColor: theme.primary }}>
 
           <div className=" h-full w-[60%] flex flex-col justify-evenly items-center ">
-            <img className="h-17 w-17 bg-gray-300 rounded-full"></img>
-            <span>username</span>
+            <img className="h-17 w-17 bg-gray-300 rounded-full" src={user.authUser.profile}></img>
+            <span>{user.authUser.username}</span>
           </div>
 
-          <section className="w-[40%] flex items-center justify-center">
+          {/* <section className="w-[40%] flex items-center justify-center">
             <b>THEME</b>
-          </section>
+          </section> */}
         </div>
 
 
@@ -45,9 +48,7 @@ const Home = () => {
           </section>
 
           <section className="user-list h-[80%] overflow-y-scroll flex flex-col gap-2  p-2">
-            {tempArr.map((v, i) => {
-              return <OtherUserList key={i} />
-            })}
+            {user?.otherUsers?.map((item,i)=><OtherUserList key={i} data={item}/>)}
           </section>
         </div>
         <button className="absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white">logout</button>
