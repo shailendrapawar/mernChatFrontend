@@ -1,13 +1,18 @@
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react";
 import axios from "axios"
 import {toast} from "react-hot-toast"
 import Loader from "../../components/loader/Loader";
-
+import { setAuthUser } from "../../store/slices/userSlice";
+import { useDispatch } from "react-redux";
 const Login = () => {
 
+
+    const dispatch=useDispatch()
+
+    const navigate=useNavigate();
     const[loading,setLoading]=useState(false)
     const [formData,setFormData]=useState({
         identifier:"",
@@ -26,6 +31,7 @@ const Login = () => {
     const handleLogin=async(e)=>{
         if(formData.identifier==""||formData.password==""){
             e.preventDefault()
+            toast.error("enter all fields")
             return
         }
 
@@ -40,6 +46,11 @@ const Login = () => {
 
             if(res){
                 toast.success(res.data.msg)
+               
+                dispatch(setAuthUser(res.data.user))
+                setTimeout(() => {
+                navigate("/home")
+                }, 1000);
             }
 
         }catch(err){
