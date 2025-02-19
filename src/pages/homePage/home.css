@@ -1,0 +1,21 @@
+.user-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  .user-list::-webkit-scrollbar-track {
+    background:white;
+  }
+  
+  /* Handle */
+  .user-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  .user-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  /* .user-list */
