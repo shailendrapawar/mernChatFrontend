@@ -1,5 +1,5 @@
 import "./home.css"
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -8,14 +8,23 @@ import OtherUserList from "../../components/otheUserList/OtherUserList"
 import useGetOtherUsers from "../../hooks/useGetOtherUser"
 import useGetConversation from "../../hooks/useGetConversation";
 import SingleMsg from "../../components/singleMsg/SingleMsg"
+import useGetRealTimeMsg from "../../hooks/useGetRealTimeMsg";
 const Home = () => {
+
   const navigate = useNavigate()
-  const tempArr = [1, 2, 3, 4, 5, 6]
+  const [inputMessage, setInputMessage] = useState("")
+
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
-  const {messages}=useSelector(state=>state.message)
-  // console.log(messages)
-  
+  const { messages } = useSelector(state => state.message)
+  // console.log(user.authUser)
+
+
+
+  const sendMessage = () => {
+    console.log(inputMessage)
+  }
+
   useEffect(() => {
     if (!user) {
       navigate("/")
@@ -25,6 +34,7 @@ const Home = () => {
   }, [])
   useGetOtherUsers()
   useGetConversation()
+  useGetRealTimeMsg()
 
   return (
     <main className="w-[90%] max-w-[800px] h-[500px] flex">
@@ -69,17 +79,23 @@ const Home = () => {
             <span className="absolute right-5">online</span>
           </header>
 
-          <main className="h-[75%] bg-white flex flex-col p-2 gap-2" >
-            {messages!=null?(
-              messages.map((v,i)=>{
-                return <SingleMsg data={v} key={i} />
+          <main className="h-[75%] bg-white flex flex-col p-2 gap-2 relative" >
+            {messages != null ? (
+              messages.map((v, i) => {
+                return <SingleMsg data={v} key={i} owner={user?.authUser} />
               })
-            ):(<h1>start a convo</h1>)}
+
+            ) : (<h1>start a convo</h1>)}
+            <div className="absolute bottom-0 w-[90%]">bottom</div>
           </main>
 
           <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">
-            <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2" placeholder="enter messsage" style={{ backgroundColor: theme.pastel }}></input>
-            <button className="w-[20%] h-8 rounded-md text-white " style={{ backgroundColor: theme.dark }}>send</button>
+            <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2" value={inputMessage}
+             onChange={(e)=>setInputMessage(e.target.value)}
+            placeholder="enter messsage" style={{ backgroundColor: theme.pastel }}></input>
+            <button className="w-[20%] h-8 rounded-md text-white " style={{ backgroundColor: theme.dark }}
+              onClick={(e) => sendMessage()}
+            >send</button>
           </footer>
 
         </section>) : (<div className="w-4/6 text-white flex items-center justify-center" style={{ backgroundColor: theme.pastel }}>

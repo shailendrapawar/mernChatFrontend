@@ -14,12 +14,13 @@ const useGetOtherUser = () => {
             try {
                 axios.defaults.withCredentials = true;
                 const res = await axios.get(import.meta.env.VITE_API_URL + `/auth/getOtherUsers`)
-                console.log(res)
+                // console.log(res)
                 if (res) {
                     dispatch(setOtherUsers(res.data.data))
                 }
             } catch (err) {
                 console.log(err)
+                
             }
         }
         if (!user.authUser) {

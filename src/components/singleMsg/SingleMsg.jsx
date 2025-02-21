@@ -1,17 +1,15 @@
 import { useSelector } from "react-redux"
 
-const SingleMsg = ({data,authUser}) =>{
-  
-const user=useSelector(state=>state.user)
-  // console.log(data)
+const SingleMsg = ({data,owner}) =>{
 
-  const isOwner=user?.authUser?._id===data.senderId
-  console.log(isOwner)
+  const {theme}=useSelector(state=>state.theme)
+
+  const isOwner=owner?.id==data?.senderId
 
   return (
-    <div className="relative max-w-[50%] break-word p-1 min-h-12 rounded-md" style={isOwner?{alignSelf:"end"}:{ alignSelf:"start"}}>
+    <div className="relative max-w-[50%] break-word p-2 min-h-12 rounded-md" style={isOwner?{alignSelf:"end",backgroundColor:theme.primary,color:"white"}:{ alignSelf:"start",backgroundColor:"#D9D9D9"}}>
       <span className="text-sm">{data.message}</span>
-      <i className="absolute bottom-0 right-1 text-xs">time</i>
+      <i className="absolute bottom-0 right-1 text-[9px]">time</i>
     </div>
   )
 }
