@@ -52,7 +52,7 @@ const Home = () => {
    if(isOnline){
     return <span className="text-green-400">online</span>
    }
-   return <span className="text-slate-400 text-sm ">offline</span>
+   return <span className=" text-sm " style={{color:theme.pastel}}>offline</span>
   }
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Home = () => {
           </div>
 
           <section className="w-[30%] flex items-center justify-center">
-            <IoColorFilterOutline onClick={()=>navigate("/theme")}/>
+            <IoColorFilterOutline className="h-10 w-10" onClick={()=>navigate("/theme")} style={{color:theme.pastel}}/>
           </section>
         </div>
 
@@ -116,16 +116,16 @@ const Home = () => {
           </main>
 
           <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">
-            <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2" value={inputMessage}
+            <input type="text" className=" text-sm h-8 w-[80%] rounded-md pl-2 outline-none" value={inputMessage}
              onChange={(e)=>setInputMessage(e.target.value)}
-            placeholder="enter messsage" style={{ backgroundColor: theme.pastel }}></input>
+            placeholder="enter messsage" style={{ backgroundColor: theme.pastel, border:`1px solid ${theme.dark}` }}></input>
             <button className="w-[20%] h-8 rounded-md text-white " style={{ backgroundColor: theme.dark }}
               onClick={(e) => sendMessage()}
             >send</button>
           </footer>
 
         </section>) : (<div className="w-4/6 text-white flex items-center justify-center" style={{ backgroundColor: theme.pastel }}>
-          <h1>select user to chat</h1>
+          <h1 style={{color:theme.dark}} >select user to chat</h1>
         </div>)
       }
 
