@@ -1,6 +1,6 @@
 import "./home.css"
-import { useEffect,useState } from "react"
-import { useSelector } from "react-redux"
+import { useEffect,useRef,useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { IoColorFilterOutline } from "react-icons/io5";
@@ -9,29 +9,50 @@ import useGetOtherUsers from "../../hooks/useGetOtherUser"
 import useGetConversation from "../../hooks/useGetConversation";
 import SingleMsg from "../../components/singleMsg/SingleMsg"
 import useGetRealTimeMsg from "../../hooks/useGetRealTimeMsg";
+import axios from "axios";
+import { setMessages } from "../../store/slices/messageSlice";
 const Home = () => {
 
   const navigate = useNavigate()
   const [inputMessage, setInputMessage] = useState("")
+  const chatRef=useRef()
 
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
   const { messages } = useSelector(state => state.message)
-  // console.log(user.authUser)
+  const dispatch=useDispatch()
 
 
+  const sendMessage = async() => {
+    // console.log(user?.selectedUser?._id)
+    if(inputMessage===""){
+      return
+    }
+    const receiverId=user?.selectedUser?._id
+    axios.defaults.withCredentials=true
+    const res=await axios.post(import.meta.env.VITE_API_URL+"/user/sendMessage",{
+      message:inputMessage,
+      receiverId:receiverId
+    },{
+      headers:{"Content-Type":"application/json",}
+    })
 
-  const sendMessage = () => {
-    console.log(inputMessage)
+    if(res){
+      const newMsg=res.data.data
+      dispatch(setMessages([...messages,newMsg]))
+      // console.log(newMsg)
+      setInputMessage("")
+    }
+    
   }
 
   useEffect(() => {
     if (!user) {
       navigate("/")
     }
+    chatRef?.current?.scrollIntoView({behavior:"smooth"})
+  }, [messages])
 
-
-  }, [])
   useGetOtherUsers()
   useGetConversation()
   useGetRealTimeMsg()
@@ -69,8 +90,6 @@ const Home = () => {
 
 
 
-
-
       {
         (user.selectedUser != null) ? (<section className="w-4/6">
           <header className="h-[15%] text-white flex relative items-center gap-5 pl-5" style={{ backgroundColor: theme.dark }}>
@@ -79,14 +98,14 @@ const Home = () => {
             <span className="absolute right-5">online</span>
           </header>
 
-          <main className="h-[75%] bg-white flex flex-col p-2 gap-2 relative" >
+          <main className=" chat-list h-[75%] bg-white flex flex-col p-2 gap-2 relative overflow-y-scroll" >
             {messages != null ? (
               messages.map((v, i) => {
                 return <SingleMsg data={v} key={i} owner={user?.authUser} />
               })
 
             ) : (<h1>start a convo</h1>)}
-            <div className="absolute bottom-0 w-[90%]">bottom</div>
+            <div className=" w-[90%] " ref={chatRef}></div>
           </main>
 
           <footer className="h-[10%] bg-white flex  gap-2  pl-2 pr-2 items-center">

@@ -10,23 +10,23 @@ const useGetConversation = () => {
     const user = useSelector(state => state.user)
     const dispatch=useDispatch()
     const navigate=useNavigate()
+
     useEffect(() => {
         // console.log(selectedUser)
-        if (selectedUser==null) {
-            return
-        }
-            const fetchConversation = async () => {
-                try {
-                    axios.defaults.withCredentials = true
-                    const res = await axios.get(import.meta.env.VITE_API_URL + `/user/getMessages/${selectedUser?._id}`)
-                    // console.log(res)
-                    dispatch(setMessages(res.data.data))
-    
-                } catch (err) {
-                    console.log(err)
+            if(selectedUser!=null){
+                const fetchConversation = async () => {
+                    try {
+                        axios.defaults.withCredentials = true
+                        const res = await axios.get(import.meta.env.VITE_API_URL + `/user/getMessages/${selectedUser?._id}`)
+                        // console.log(res)
+                        dispatch(setMessages(res.data.data))
+        
+                    } catch (err) {
+                        console.log(err)
+                    }
                 }
+                fetchConversation()
             }
-            fetchConversation()
         
 
     }, [selectedUser?._id, setMessages])

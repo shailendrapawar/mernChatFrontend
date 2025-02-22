@@ -19,4 +19,26 @@
     background: #555;
   }
 
-  /* .user-list */
+
+
+
+  .chat-list::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  .chat-list::-webkit-scrollbar-track {
+    background:white;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+ .chat-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+   .chat-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
