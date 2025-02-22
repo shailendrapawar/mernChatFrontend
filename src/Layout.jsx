@@ -28,9 +28,8 @@ const Layout = () => {
     dispatch(setSocket(socket))
 
     socket.on("getOnlineUsers",(onlineUsers)=>{
-      console.log(onlineUsers)
+      dispatch(setOnlineUsers(  onlineUsers))
     })
-
 
     return ()=>{
       socket.close()

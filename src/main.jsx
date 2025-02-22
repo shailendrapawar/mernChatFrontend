@@ -9,6 +9,7 @@ import Register from './pages/authPages/Register.jsx'
 import Home from './pages/homePage/Home.jsx'
 import { Provider } from "react-redux"
 import myStore from './store/store.js'
+import ThemePage from './pages/themePage/ThemePage.jsx'
 const myRouter = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
 
@@ -16,6 +17,7 @@ const myRouter = createBrowserRouter(createRoutesFromElements(
     <Route path='/register' element={<Register />} />
 
     <Route path='/home' element={<Home />} />
+    <Route path='/theme' element={<ThemePage/>}/>
 
   </Route>
 ))

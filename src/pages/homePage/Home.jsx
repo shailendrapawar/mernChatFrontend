@@ -22,9 +22,10 @@ const Home = () => {
   const { messages } = useSelector(state => state.message)
   const dispatch=useDispatch()
 
+  const {onlineUsers}=useSelector(state=>state.user)
+
 
   const sendMessage = async() => {
-    // console.log(user?.selectedUser?._id)
     if(inputMessage===""){
       return
     }
@@ -40,10 +41,18 @@ const Home = () => {
     if(res){
       const newMsg=res.data.data
       dispatch(setMessages([...messages,newMsg]))
-      // console.log(newMsg)
       setInputMessage("")
     }
     
+  }
+
+
+  const checkOnline=(userId)=>{
+   const isOnline= onlineUsers?.includes(userId)
+   if(isOnline){
+    return <span className="text-green-400">online</span>
+   }
+   return <span className="text-slate-400 text-sm ">offline</span>
   }
 
   useEffect(() => {
@@ -63,14 +72,14 @@ const Home = () => {
       <section className="w-2/6 relative" style={{ backgroundColor: theme.pastel }}>
         <div className="w-100% h-[20%] flex text-white" style={{ backgroundColor: theme.primary }}>
 
-          <div className=" h-full w-[60%] flex flex-col justify-evenly items-center ">
+          <div className=" h-full w-[70%] flex flex-col justify-evenly items-center pt-1">
             <img className="h-17 w-17 bg-gray-300 rounded-full" src={user?.authUser?.profile}></img>
             <span>{user?.authUser?.username}</span>
           </div>
 
-          {/* <section className="w-[40%] flex items-center justify-center">
-            <b>THEME</b>
-          </section> */}
+          <section className="w-[30%] flex items-center justify-center">
+            <IoColorFilterOutline onClick={()=>navigate("/theme")}/>
+          </section>
         </div>
 
 
@@ -88,14 +97,12 @@ const Home = () => {
       </section>
 
 
-
-
       {
         (user.selectedUser != null) ? (<section className="w-4/6">
           <header className="h-[15%] text-white flex relative items-center gap-5 pl-5" style={{ backgroundColor: theme.dark }}>
             <img className="h-15 w-15 bg-slate-300 rounded-full" src={user?.selectedUser?.profileImg}></img>
             <span>{user?.selectedUser?.username}</span>
-            <span className="absolute right-5">online</span>
+            <span className="absolute right-5">{checkOnline(user?.selectedUser?._id)}</span>
           </header>
 
           <main className=" chat-list h-[75%] bg-white flex flex-col p-2 gap-2 relative overflow-y-scroll" >
