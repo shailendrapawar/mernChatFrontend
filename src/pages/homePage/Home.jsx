@@ -15,6 +15,8 @@ import SingleMsg from "../../components/singleMsg/SingleMsg"
 import useGetRealTimeMsg from "../../hooks/useGetRealTimeMsg";
 import axios from "axios";
 import { setMessages } from "../../store/slices/messageSlice";
+
+import { toast } from "react-hot-toast"
 const Home = () => {
 
   const navigate = useNavigate()
@@ -58,7 +60,7 @@ const Home = () => {
     if (isOnline) {
       return <span className="text-green-400">online</span>
     }
-    return <span className=" text-sm " style={{ color: theme.pastel }}>offline</span>
+    return <span className=" text-sm " style={{ color: theme.pastel }}></span>
   }
 
 
@@ -76,23 +78,42 @@ const Home = () => {
 
   //for searching a user==================
   const handleSearchUser = (e) => {
-    const otherUser=user?.otherUsers;
-    const res=otherUser.filter((v)=>v.username===keyword)
+    const otherUser = user?.otherUsers;
+    const res = otherUser.filter((v) => v.username === keyword)
     setOtherUserList(res)
   }
 
+  //fpr loggin out ======================
+  const handleLogout = async () => {
+    console.log("logging out")
+    try {
+      axios.defaults.withCredentials=true
+      const isLogout = await axios.get(import.meta.env.VITE_API_URL + `/auth/logout`)
+
+      if (isLogout) {
+        setTimeout(() => {
+          toast.success(isLogout.data.msg)
+          navigate("/")
+        }, 1000);
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
   //refreshing of other user list if keyword empty=========================
-  useEffect(()=>{
-    if(keyword===""){
+  useEffect(() => {
+    if (keyword === "") {
       setOtherUserList(user?.otherUsers)
     }
-  },[keyword,user.otherUsers])
+  }, [keyword, user.otherUsers])
 
   //refreshing the other user list after selection of any user===================
-  useEffect(()=>{
-      setOtherUserList(user?.otherUsers)
-      setKeyword("")
-  },[user?.selectedUser])
+  useEffect(() => {
+    setOtherUserList(user?.otherUsers)
+    setKeyword("")
+  }, [user?.selectedUser])
 
 
 
@@ -117,17 +138,17 @@ const Home = () => {
 
         <div className="h-[70%] flex flex-col justify-evenly" style={{ backgroundColor: theme.pastel }}>
           <section className="h-10 flex justify-evenly items-center pl-1 pr-1">
-            <input ref={searchRef} value={keyword} onChange={(e) => setKeyword(e.target.value)} type="text" className="w-[75%]  h-7 text-xs pl-1 pr-1 bg-white outline-none " style={{border:`1px solid ${theme?.dark}`}} />
+            <input ref={searchRef} value={keyword} onChange={(e) => setKeyword(e.target.value)} type="text" className="w-[75%]  h-7 text-xs pl-1 pr-1 bg-white outline-none " style={{ border: `1px solid ${theme?.dark}` }} />
             <button onClick={handleSearchUser} className="w-[30%] text-xs h-7 text-white p-1" style={{ backgroundColor: theme.dark }}>
               <MdPersonSearch className="h-full w-full" />
             </button>
           </section>
 
           <section className="user-list h-[80%] overflow-y-scroll overflow-x-hidden flex flex-col gap-2  p-2">
-            {otherUserList!=[]?(otherUserList?.map((item, i) => <OtherUserList key={i} data={item} />)):(<b>loading</b>)}
+            {otherUserList != [] ? (otherUserList?.map((item, i) => <OtherUserList key={i} data={item} />)) : (<b>loading</b>)}
           </section>
         </div>
-        <button className="absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white">logout</button>
+        <button className="absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white" onClick={handleLogout}>logout</button>
       </section>
 
       {
@@ -155,7 +176,7 @@ const Home = () => {
             <button className="w-[20%] h-8 rounded-md text-white p-1" style={{ backgroundColor: theme.dark }}
               onClick={(e) => sendMessage()}
             >
-              <BiSolidSend className="h-full w-full"/>
+              <BiSolidSend className="h-full w-full" />
             </button>
           </footer>
 
@@ -163,9 +184,6 @@ const Home = () => {
           <h1 style={{ color: theme.dark }} >select user to chat</h1>
         </div>)
       }
-
-
-
     </main>
   )
 }

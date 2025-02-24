@@ -1,10 +1,10 @@
+import { useSelector } from "react-redux";
 import ThemeCard from "../../components/themeCard/ThemeCard"
 import "./themePage.css"
 import { IoArrowBackCircle } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const ThemePage = () => {
-
-
   const themeArr = [
     {
       id: 1,
@@ -73,9 +73,10 @@ const ThemePage = () => {
       id: 10,
       dark: "#687351",
       primary: "#9ba17f",
-      light: "#e8e4db",
-      pastel: "#c9c1ae"
+      light: "#c9c1ae",
+      pastel: "#e8e4db"
     },
+    // "#e8e4db"
     {
       id: 11,
       dark: "#0d1821",
@@ -92,22 +93,38 @@ const ThemePage = () => {
     },
     {
       id: 13,
-      dark: "#000000",
-      primary: "#586f7c",
-      light: "#b8dbd9",
-      pastel: "#f4f4f9"
-    }
+      dark: "#2b2d42",
+      primary: "#ef233c",
+      light: "#8d99ae",
+      pastel: "#edf2f4"
+    },
+    {
+      id: 14,
+      dark: "#006d77",
+      primary: "#83c5be",
+      light: "#ffddd2",
+      pastel: "#edf6f9"
+    },
+    {
+      id: 15,
+      dark: "#243e36",
+      primary: "#7ca982",
+      light: "#e0eec6",
+      pastel: "#f1f7ed"
+    },
   ];
   
-  
 
+  const{theme}=useSelector(state=>state.theme)
+  const navigate=useNavigate()
+  
   return (
     <div className="bg-slate-200 w-[90%] max-w-[500px] h-50 relative flex items-end justify-evenly pb-5">
-      <IoArrowBackCircle className=" h-8 w-8 absolute left-2 top-2"/>
-      <section className=" scroll-class w-full  h-3/4 flex justify-evenly items-center flex-wrap overflow-y-scroll gap-2">
+      <IoArrowBackCircle className=" h-8 w-8 absolute left-2 top-2" onClick={()=>navigate("/home")}/>
+      <section className=" scroll-class w-full  h-3/4 flex justify-evenly items-center flex-wrap overflow-y-scroll gap-2 p-1">
         {
           (themeArr!=[])?(themeArr.map((item,i)=>{
-            return <ThemeCard data={item} key={i}/>
+            return <ThemeCard data={item} key={i} curr={theme.id}/>
           })):(<h1> no theme available</h1>)
         }
       </section>

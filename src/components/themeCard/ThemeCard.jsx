@@ -3,7 +3,7 @@ import { setTheme } from "../../store/slices/themeSlice"
 import { useDispatch } from "react-redux"
 import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-const ThemeCard = ({ data }) => {
+const ThemeCard = ({ data,curr }) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -15,8 +15,9 @@ const ThemeCard = ({ data }) => {
   }
 
   return (
-    <div className="h-10 w-auto p-1 flex items-center gap-1 border border-slate-400 bg-white  rounded-md"
+    <div className="h-10 w-auto p-1 flex items-center gap-2 border border-slate-400 bg-white  rounded-md"
       onClick={() => handleThemeClick()}
+      style={curr===data.id?{border:`3px solid ${data.dark}`}:{}}
     >
       <div className={`themeCircle`} style={{ backgroundColor: data.pastel }}></div>
       <div className="themeCircle" style={{ backgroundColor: data.light }}></div>

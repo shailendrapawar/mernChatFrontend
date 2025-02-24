@@ -16,10 +16,10 @@ const OtherUserList = ({ data, }) => {
 
   return (
     <div className=" otherUserList-body min-h-auto flex  justify-start items-center gap-2 p-1.5  relative  cursor-pointer select-none" onClick={handleClick}
-      style={isSelected ? { backgroundColor: theme.dark, color: theme.pastel } : { backgroundColor: theme.light, }}
+      style={isSelected ? { backgroundColor: theme.dark, color: "white" } : { backgroundColor: theme.light, }}
     >
       <img className={`h-14 w-14 rounded-full p-1 ${isActive ? "bg-green-500" : "bg-slate-400"}`} src={data.profileImg} alt="usrImg" ></img>
-      <span className="text-sm">{data.username}</span>
+      <span className="text-sm" style={isSelected?{}:{color:theme.dark}}>{data.username}</span>
     </div>
   )
 }
