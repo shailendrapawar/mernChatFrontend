@@ -47,7 +47,6 @@ const Login = () => {
 
             if(res){
                 toast.success(res.data.msg)
-               
                 dispatch(setAuthUser(res.data.user))
                 setTimeout(() => {
                 navigate("/home")
