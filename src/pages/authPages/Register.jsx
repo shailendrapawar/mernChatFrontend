@@ -107,7 +107,7 @@ const Register = () => {
 
         <section className="h-8 flex items-center justify-between  w-[90%] absolute bottom-1">
           <Link to={"/"} className="text-blue-600 text-sm">already user? Login</Link>
-          <button className=" h-full w-20 bg-blue-500 text-white rounded-md" onClick={(e) => handleClick(e)}>Log-in</button>
+          <button className=" h-full w-20 bg-blue-500 text-white rounded-md" onClick={(e) => handleClick(e)}>Register</button>
         </section>
       </div>
 

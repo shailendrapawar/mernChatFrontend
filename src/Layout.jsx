@@ -28,7 +28,7 @@ const Layout = () => {
     dispatch(setSocket(socket))
 
     socket.on("getOnlineUsers",(onlineUsers)=>{
-      dispatch(setOnlineUsers(  onlineUsers))
+      dispatch(setOnlineUsers(onlineUsers))
     })
 
     return ()=>{

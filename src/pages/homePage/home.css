@@ -1,10 +1,12 @@
 .user-list::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
+    
   }
   
   /* Track */
   .user-list::-webkit-scrollbar-track {
-    background:white;
+    /* background:white; */
+    background:transparent;
     border-radius: 10px;
   }
   
@@ -21,6 +23,30 @@
 
 
 
+  @media screen and (max-width:480px){
+
+    .selectedUser-header{
+      justify-content: flex-start;
+      padding-left: 10px;
+      gap:10px;
+      font-size: 12px;
+    }
+    .selectedUser-header img{
+      height: 50px;
+      width: 50px;
+    }
+    .authUser-body-img{
+      height: 50px;
+      width: 50px;
+    }
+
+  }
+  
+
+
+  .chat-list{
+  overflow-x:hidden;
+  }
 
   .chat-list::-webkit-scrollbar {
     width: 3px;

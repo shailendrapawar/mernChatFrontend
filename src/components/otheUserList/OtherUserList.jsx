@@ -1,19 +1,25 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setSelectedUser } from "../../store/slices/userSlice"
-
-const OtherUserList = ({data}) => {
-  const dispatch=useDispatch()
-  const {onlineUsers}=useSelector(state=>state.user)
-  const isActive=onlineUsers.includes(data._id)
-
-  const handleClick=()=>{
+import "./otherUserList.css"
+const OtherUserList = ({ data, }) => {
+  const user = useSelector(state => state.user)
+  const { theme } = useSelector(state => state.theme)
+  const dispatch = useDispatch()
+  const { onlineUsers } = useSelector(state => state.user)
+  const isActive = onlineUsers.includes(data._id)
+  const handleClick = () => {
     dispatch(setSelectedUser(data))
   }
 
+  const isSelected = (user?.selectedUser?._id == data?._id)
+
+
   return (
-    <div className=" min-h-16 flex flex-wrap justify-start items-center gap-2 pl-2 pt-1 relative bg-white cursor-pointer select-none" onClick={handleClick}>
-        <img className={`h-14 w-14 rounded-full p-1 ${isActive?"bg-green-500":"bg-slate-400"}`} src={data.profileImg} alt="usrImg" ></img>
-        <span>{data.username}</span>
+    <div className=" otherUserList-body min-h-auto flex  justify-start items-center gap-2 p-1.5  relative  cursor-pointer select-none" onClick={handleClick}
+      style={isSelected ? { backgroundColor: theme.dark, color: theme.pastel } : { backgroundColor: theme.light, }}
+    >
+      <img className={`h-14 w-14 rounded-full p-1 ${isActive ? "bg-green-500" : "bg-slate-400"}`} src={data.profileImg} alt="usrImg" ></img>
+      <span className="text-sm">{data.username}</span>
     </div>
   )
 }
