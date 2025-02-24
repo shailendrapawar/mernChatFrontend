@@ -39,6 +39,7 @@ const Register = () => {
     }
     try {
 
+      axios.defaults.withCredentials=true
       let res = await axios.post(import.meta.env.VITE_API_URL+"/auth/register", formData, {
         headers: {
           "Content-Type": "application/json"
@@ -58,8 +59,6 @@ const Register = () => {
       console.error(err.message)
       toast.error(err.response.data.msg)
     }
-
-
   }
 
 
