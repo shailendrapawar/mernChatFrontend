@@ -78,6 +78,10 @@ const Home = () => {
 
   //for searching a user==================
   const handleSearchUser = (e) => {
+    if(keyword===""){
+      toast.error("enter username")
+      return
+    }
     const otherUser = user?.otherUsers;
     const res = otherUser.filter((v) => v.username === keyword)
     setOtherUserList(res)
@@ -85,7 +89,11 @@ const Home = () => {
 
   //fpr loggin out ======================
   const handleLogout = async () => {
-    console.log("logging out")
+
+    const res=confirm("Sure u wanna log-out")
+    if(!res){
+      return
+    }
     try {
       axios.defaults.withCredentials=true
       const isLogout = await axios.get(import.meta.env.VITE_API_URL + `/auth/logout`)
@@ -99,7 +107,6 @@ const Home = () => {
     } catch (err) {
       console.log(err)
     }
-
   }
 
   //refreshing of other user list if keyword empty=========================
@@ -107,7 +114,7 @@ const Home = () => {
     if (keyword === "") {
       setOtherUserList(user?.otherUsers)
     }
-  }, [keyword, user.otherUsers])
+  }, [keyword,user.otherUsers])
 
   //refreshing the other user list after selection of any user===================
   useEffect(() => {
@@ -116,11 +123,8 @@ const Home = () => {
   }, [user?.selectedUser])
 
 
-
-
-
   return (
-    <main className="w-[90%] max-w-[800px] h-[500px] flex">
+    <main className=" home-container w-[90%] max-w-[800px] h-[500px] flex">
 
       <section className="w-2/6 relative" style={{ backgroundColor: theme.pastel }}>
         <div className="w-100% h-[20%] flex text-white" style={{ backgroundColor: theme.primary }}>
@@ -148,7 +152,7 @@ const Home = () => {
             {otherUserList != [] ? (otherUserList?.map((item, i) => <OtherUserList key={i} data={item} />)) : (<b>loading</b>)}
           </section>
         </div>
-        <button className="absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white" onClick={handleLogout}>logout</button>
+        <button className=" logout-btn absolute bottom-3 left-3 w-20 h-8 rounded-md bg-red-500 text-white" onClick={handleLogout}>logout</button>
       </section>
 
       {
@@ -164,7 +168,6 @@ const Home = () => {
               messages.map((v, i) => {
                 return <SingleMsg data={v} key={i} owner={user?.authUser} />
               })
-
             ) : (<h1>start a convo</h1>)}
             <div className=" w-[90%] " ref={chatRef}></div>
           </main>
@@ -176,7 +179,7 @@ const Home = () => {
             <button className="w-[20%] h-8 rounded-md text-white p-1" style={{ backgroundColor: theme.dark }}
               onClick={(e) => sendMessage()}
             >
-              <BiSolidSend className="h-full w-full" />
+              <BiSolidSend className="h-full w-full msgSend-btn" />
             </button>
           </footer>
 

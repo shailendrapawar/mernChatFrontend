@@ -1,68 +1,82 @@
 .user-list::-webkit-scrollbar {
-    width: 4px;
-    
-  }
-  
-  /* Track */
-  .user-list::-webkit-scrollbar-track {
-    /* background:white; */
-    background:transparent;
-    border-radius: 10px;
-  }
-  
-  /* Handle */
-  .user-list::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  .user-list::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  width: 4px;
+
+}
+
+/* Track */
+.user-list::-webkit-scrollbar-track {
+  /* background:white; */
+  background: transparent;
+  border-radius: 10px;
+}
+
+/* Handle */
+.user-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.user-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.logout-btn:active {
+  transform: scale(0.9);
+}
 
 
 
-  @media screen and (max-width:480px){
+@media screen and (max-width:480px) {
 
-    .selectedUser-header{
-      justify-content: flex-start;
-      padding-left: 10px;
-      gap:10px;
-      font-size: 12px;
-    }
-    .selectedUser-header img{
-      height: 50px;
-      width: 50px;
-    }
-    .authUser-body-img{
-      height: 50px;
-      width: 50px;
-    }
-
-  }
-  
-  .chat-list{
-  overflow-x:hidden;
+  .selectedUser-header {
+    justify-content: flex-start;
+    padding-left: 10px;
+    gap: 10px;
+    font-size: 12px;
   }
 
-  .chat-list::-webkit-scrollbar {
-    width: 4px;
+  .selectedUser-header img {
+    height: 50px;
+    width: 50px;
   }
-  
-  /* Track */
-  .chat-list::-webkit-scrollbar-track {
-    background:white;
-    border-radius: 10px;
+
+  .authUser-body-img {
+    height: 50px;
+    width: 50px;
   }
-  
-  /* Handle */
- .chat-list::-webkit-scrollbar-thumb {
-    background: #707070;
-    border-radius: 10px;
+
+  .home-container {
+    width: 100%;
   }
-  
-  /* Handle on hover */
-   .chat-list::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+
+}
+
+.msgSend-btn:active {
+  transform: scale(0.8);
+}
+
+.chat-list {
+  overflow-x: hidden;
+}
+
+.chat-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.chat-list::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 10px;
+}
+
+/* Handle */
+.chat-list::-webkit-scrollbar-thumb {
+  background: #707070;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.chat-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
