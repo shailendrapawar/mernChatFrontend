@@ -44,7 +44,8 @@ const Home = () => {
       message: inputMessage,
       receiverId: receiverId
     }, {
-      headers: { "Content-Type": "application/json", }
+      headers: { "Content-Type": "application/json", },
+      withCredentials: true
     })
 
     if (res) {
@@ -78,7 +79,7 @@ const Home = () => {
 
   //for searching a user==================
   const handleSearchUser = (e) => {
-    if(keyword===""){
+    if (keyword === "") {
       toast.error("enter username")
       return
     }
@@ -90,12 +91,12 @@ const Home = () => {
   //fpr loggin out ======================
   const handleLogout = async () => {
 
-    const res=confirm("Sure u wanna log-out")
-    if(!res){
+    const res = confirm("Sure u wanna log-out")
+    if (!res) {
       return
     }
     try {
-      axios.defaults.withCredentials=true
+      axios.defaults.withCredentials = true
       const isLogout = await axios.get(import.meta.env.VITE_API_URL + `/auth/logout`)
 
       if (isLogout) {
@@ -114,7 +115,7 @@ const Home = () => {
     if (keyword === "") {
       setOtherUserList(user?.otherUsers)
     }
-  }, [keyword,user.otherUsers])
+  }, [keyword, user.otherUsers])
 
   //refreshing the other user list after selection of any user===================
   useEffect(() => {
