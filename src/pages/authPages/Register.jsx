@@ -10,7 +10,7 @@ import axios from "axios"
 
 const Register = () => {
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -39,8 +39,8 @@ const Register = () => {
     }
     try {
 
-      axios.defaults.withCredentials=true
-      let res = await axios.post(import.meta.env.VITE_API_URL+"/auth/register", formData, {
+      axios.defaults.withCredentials = true
+      let res = await axios.post(import.meta.env.VITE_API_URL + "/auth/register", formData, {
         headers: {
           "Content-Type": "application/json"
         },
@@ -49,7 +49,7 @@ const Register = () => {
 
       if (res) {
         toast.success(res.data.msg)
-        
+
         setTimeout(() => {
           navigate("/")
         }, 1000);
@@ -58,6 +58,8 @@ const Register = () => {
     } catch (err) {
       console.error(err.message)
       toast.error(err.response.data.msg)
+    } finally {
+      setLoading(false)
     }
   }
 
