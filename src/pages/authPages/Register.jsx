@@ -19,7 +19,7 @@ const Register = () => {
   })
 
   const handleChange = (e) => {
-    // console.log(e)
+
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
@@ -29,8 +29,7 @@ const Register = () => {
   }
 
   const handleClick = async (e) => {
-
-
+    
     if (formData.email == "" || formData.username == "" || formData.password == "") {
       console.log("enter all feilds")
       toast.error("enter all fields")
@@ -59,7 +58,7 @@ const Register = () => {
       console.error(err.message)
       toast.error(err.response.data.msg)
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
