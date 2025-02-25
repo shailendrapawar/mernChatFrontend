@@ -27,7 +27,6 @@ const useGetOtherUser = () => {
                 }
             } catch (err) {
                 console.log(err)
-                
             }
         }
         

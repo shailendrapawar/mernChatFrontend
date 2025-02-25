@@ -7,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { toast } from "react-hot-toast"
 import axios from "axios"
+import Loader from "../../components/loader/Loader";
 
 const Register = () => {
 
+  const[loading,setLoading]=useState(false)
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: "",
@@ -38,6 +40,7 @@ const Register = () => {
     }
     try {
 
+      setLoading(true)
       axios.defaults.withCredentials = true
       let res = await axios.post(import.meta.env.VITE_API_URL + "/auth/register", formData, {
         headers: {
@@ -58,16 +61,17 @@ const Register = () => {
       console.error(err.message)
       toast.error(err.response.data.msg)
     } finally {
-      // setLoading(false)
+      setLoading(false)
     }
   }
 
 
   return (
-    <div onSubmit={handleClick} className="h-[400px] w-[320px] bg-slate-200 pl-2 pr-2 flex flex-col gap-5 justify-evenly ">
+    <div onSubmit={handleClick} className="h-[400px] w-[320px] bg-slate-200 pl-2 pr-2 flex flex-col gap-5 justify-evenly items-center ">
 
       <h1 className="text-center text-3xl">Register page</h1>
-      <div className=" h-[60%] flex flex-col gap-2 items-center relative">
+    <Loader value={loading} />
+      <div className=" h-[60%] w-full flex flex-col gap-2 items-center relative">
         <section className=" h-10 flex w-full  bg-white rounded-md overflow-hidden">
           <div className="w-[15%] flex justify-center items-center bg-blue-500"><FaUser className="h-5 w-5 text-white "></FaUser></div>
           <input name="username"
