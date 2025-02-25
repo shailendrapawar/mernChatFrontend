@@ -17,7 +17,12 @@ const useGetConversation = () => {
                 const fetchConversation = async () => {
                     try {
                         axios.defaults.withCredentials = true
-                        const res = await axios.get(import.meta.env.VITE_API_URL + `/user/getMessages/${selectedUser?._id}`)
+                        const res = await axios.get(import.meta.env.VITE_API_URL + `/user/getMessages/${selectedUser?._id}`,{
+                            headers:{
+                                "Content-Type":"application/json",
+                            },
+                            withCredentials:true
+                        })
                         // console.log(res)
                         dispatch(setMessages(res.data.data))
         
