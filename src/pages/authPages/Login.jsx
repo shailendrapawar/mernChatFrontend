@@ -15,8 +15,8 @@ const Login = () => {
     const navigate=useNavigate();
     const[loading,setLoading]=useState(false)
     const [formData,setFormData]=useState({
-        identifier:"",
-        password:""
+        identifier:"admin",
+        password:"admin"
     })
 
     const handleChange=(e)=>{

@@ -17,6 +17,8 @@ import axios from "axios";
 import { setMessages } from "../../store/slices/messageSlice";
 
 import { toast } from "react-hot-toast"
+
+import { persistor } from "../../store/store";
 const Home = () => {
 
   const navigate = useNavigate()
@@ -27,6 +29,7 @@ const Home = () => {
   const user = useSelector(state => state.user)
   const { theme } = useSelector(state => state.theme)
   const { messages } = useSelector(state => state.message)
+  const {socket}=useSelector(s=>s.socket)
   const dispatch = useDispatch()
 
   const { onlineUsers } = useSelector(state => state.user)
@@ -102,7 +105,10 @@ const Home = () => {
       if (isLogout) {
         setTimeout(() => {
           toast.success(isLogout.data.msg)
+          persistor.purge()
           navigate("/")
+         
+          socket.disconnect()
         }, 1000);
       }
     } catch (err) {
@@ -149,6 +155,7 @@ const Home = () => {
             </button>
           </section>
 
+
           <section className="user-list h-[80%] overflow-y-scroll overflow-x-hidden flex flex-col gap-2  p-2">
             {otherUserList != [] ? (otherUserList?.map((item, i) => <OtherUserList key={i} data={item} />)) : (<b>loading</b>)}
           </section>
@@ -165,11 +172,13 @@ const Home = () => {
           </header>
 
           <main className=" chat-list h-[75%] bg-white flex flex-col p-2 gap-2 relative overflow-y-scroll" >
+            
             {messages != null ? (
               messages.map((v, i) => {
                 return <SingleMsg data={v} key={i} owner={user?.authUser} />
               })
-            ) : (<h1>start a convo</h1>)}
+            ) : (<h1 className="">start a convo</h1>)}
+
             <div className=" w-[90%] " ref={chatRef}></div>
           </main>
 
